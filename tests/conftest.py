@@ -1,8 +1,10 @@
 import json
 import pytest
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from config.config import TestData
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 @pytest.fixture
@@ -17,8 +19,7 @@ def get_chrome_options():
 @pytest.fixture
 def get_chrome_webdriver(get_chrome_options):
     options = get_chrome_options
-    driver_location = 'chromedriver/chromedriver'
-    driver = webdriver.Chrome(executable_path=driver_location, options=options)
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
     return driver
 
 
@@ -43,4 +44,4 @@ def setup(request, get_chrome_webdriver):
     driver.get(url)
     yield driver
     driver.close()
-    driver.quit()
+    # driver.quit()

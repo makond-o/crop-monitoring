@@ -1,0 +1,6 @@
+**/__pycache__
+.DS_Store
+token.json
+token.pickle
+credentials.json
+.idea
